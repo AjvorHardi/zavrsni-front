@@ -34,7 +34,6 @@ export default {
         ...mapActions(['createStudent', 'getGradebooks']),
         onSubmit() {
             this.newStudent.gradebook_id = this.$route.params.id;
-            console.log(this.$route.params.id);
             this.createStudent(this.newStudent);
             this.$router.push(`/gradebooks/${this.newStudent.gradebook_id}`);
         }

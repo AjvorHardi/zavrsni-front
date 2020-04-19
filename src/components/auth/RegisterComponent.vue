@@ -43,13 +43,18 @@
         required
       />
 
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Accepted terms and conditions</label>
+      <div class="form-check text-left">
+        <input type="checkbox" class="form-check-input" id="terms">
+        <label class="form-check-label" for="terms">Accepted terms and conditions</label>
       </div>
 
       <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
     </form>
+    
+        <p v-for="(error, index) in errors" 
+        :key="index">
+        {{error[0]}}
+        </p>
   </div>
 </template>
 
@@ -63,7 +68,8 @@ export default {
             lastName: '',
             email: '',
             password: '',
-            password_confirmation: ''
+            password_confirmation: '',
+            errors: []
         }
     },
     methods: {
@@ -77,10 +83,15 @@ export default {
                 password_confirmation: this.password_confirmation
             }).then(() => {
                 this.$router.push('/');
-            })
-            
-        }
-    },
+            }).catch(e => {
+                this.errors = []
+                const err = Object.values(e.response.data);
+                err.forEach(error => {
+                    this.errors.push(error);
+                });
+            });
+        },
+    }
 };
 </script>
 

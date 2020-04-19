@@ -37,8 +37,7 @@ const routes = [
   {
     path: '/teachers',
     name: 'teachers',
-    component: TeachersComponent,
-    meta: { requiresAuth: true}
+    component: TeachersComponent
   },
   {
     path: '/teachers/create',

@@ -15,6 +15,7 @@
       <button type="reset">Reset</button>
       
     </form>
+      <p> {{error[0]}} </p>
   </div>
 </template>
 
@@ -23,14 +24,18 @@ import {mapGetters, mapActions} from 'vuex'
 export default {
     data() {
         return {
-            newGradebook: {}
+            newGradebook: {},
+            error: ""
         }
     },
     methods: {
         ...mapActions(['getTeachers', 'getGradebooks', 'createGradebook']),
         onSubmit() {
-            this.createGradebook(this.newGradebook)
-            this.$router.push("/gradebooks");
+            this.createGradebook(this.newGradebook).then(() => {
+              this.$router.push("/gradebooks");
+            }).catch(e => {
+              this.error = e.response.message
+            })
         },
         onReset() {
             this.$router.push("/gradebooks");

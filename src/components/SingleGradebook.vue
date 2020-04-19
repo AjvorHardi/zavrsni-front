@@ -6,21 +6,27 @@
         <h1> {{ gradebook.title }} </h1>
         <h4 v-if="razredni"> {{ gradebook.teacher.firstName }} {{ gradebook.teacher.lastName }} </h4>
         <ul class="list-group">
-            <li v-for="student in gradebook.student" :key="student.id" class="list-group-item">
+            <li v-for="student in gradebook.student" :key="student.id" class="list-group-item text-left">
                 {{student.firstName}} {{student.lastName}}
             </li>
         </ul>
         <div class="text-left">
+        <br>
         <button @click="deleteThisGradebook" type="button" class="btn btn-danger">Delete Gradebook</button>
         </div>
+        <comments-list :comments="gradebook.comment"/>
+
     </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import CommentsList from './CommentsList'
 
     export default {
-        
+        components: {
+            CommentsList,
+        },
         methods: {
             ...mapActions(['getSingleGradebook', 'deleteGradebook']),
             addStudentsForm() {

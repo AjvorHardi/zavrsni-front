@@ -3,11 +3,11 @@
     <h1>{{ teacher.lastName }}</h1>
     <h4>{{ teacher.firstName }}</h4>
     <h3>
-      <router-link
+      <router-link v-if="ifGradebook"
         :to="`/gradebooks/${teacher.gradebook.id}`"
         class="card-title">
         {{ teacher.gradebook.title }}
-        </router-link>
+        </router-link><p>Broj ucenika: {{ teacher.gradebook.student }}</p>
     </h3>
   </div>
 </template>
@@ -20,7 +20,10 @@ export default {
     ...mapActions(["getSingleTeacher"])
   },
   computed: {
-    ...mapGetters(["teacher"])
+    ...mapGetters(["teacher"]),
+    ifGradebook() {
+      return this.teacher.gradebook.id
+    }
   },
   created() {
     this.getSingleTeacher(this.$route.params.id);

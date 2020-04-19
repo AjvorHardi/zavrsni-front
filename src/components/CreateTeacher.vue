@@ -39,8 +39,12 @@ export default {
     methods: {
         ...mapActions(['createTeacher', 'getGradebooks', 'getTeachers']),
         onSubmit() {
-            this.createTeacher(this.newTeacher);
-            // this.$router.push("/gradebooks");
+            this.createTeacher(this.newTeacher)
+            .then(() => {
+                this.$router.push('/teachers');
+            }).catch(e => {
+                this.error = e.response.data.error;
+            })
         }
     },
     computed: {

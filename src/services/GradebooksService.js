@@ -41,6 +41,27 @@ class GradebooksService {
         const response = await HTTP.post('/login', credentials);
         return response.data
     }
+    async getComments(gradebook_id) {
+        const response = await HTTP.get(`/gradebooks/${gradebook_id}/comments`);
+        return response.data;
+    }
+    async getSingleComment(gradebook_id, comment_id) {
+        const response = await HTTP.get(`/gradebooks/${gradebook_id}/comments/${comment_id}`);
+        return response.data;
+    }
+    async createComment(newComment) {
+        const gradebook_id = newComment.gradebook_id;
+        const response = await HTTP.post(`/gradebooks/${gradebook_id}/comments`, newComment);
+        return response.data;
+    }
+    async getUser() {
+        const response = await HTTP.get('/user');
+        return response.data;
+    }
+    async deleteComment(gradebook_id, comment_id) {
+        const response = await HTTP.delete(`/gradebooks/${gradebook_id}/comments/${comment_id}`);
+        return response.data;
+    }
 }
 
 const gradebooksService = new GradebooksService();

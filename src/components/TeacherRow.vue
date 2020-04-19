@@ -1,6 +1,11 @@
 <template>
   <div>
-    <p>{{teacher.firstName}} {{ teacher.lastName}}</p>
+          <router-link
+        :to="`/teachers/${teacher.id}`"
+        class="card-title"><h4>{{teacher.firstName}} {{ teacher.lastName}}</h4>
+        </router-link>
+      
+      <p>{{ razred }}</p>
   </div>
 </template>
 
@@ -11,6 +16,15 @@ export default {
       type: Object,
       required: true
     }
-  }
+  },
+  computed: {
+    razred() {
+      if (!this.teacher.gradebook) {
+        return "Teacher is available" 
+      } else {
+        return this.teacher.gradebook.title
+      }
+    }
+  },
 };
 </script>

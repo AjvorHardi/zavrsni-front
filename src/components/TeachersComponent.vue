@@ -1,6 +1,6 @@
 <template>
     <div>
-        <teacher-row v-for="teacher in teachers" :key="teacher.id" :teacher="teacher"></teacher-row>
+        <teacher-row v-for="teacher in teachersToShow" :key="teacher.id" :teacher="teacher"></teacher-row>
     </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
         TeacherRow
     },
     computed: {
-        ...mapGetters(['teachers'])
+        ...mapGetters(['teachers', 'teachersToShow'])
     },
     methods: {
         ...mapActions(['getTeachers'])

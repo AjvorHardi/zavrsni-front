@@ -1,6 +1,8 @@
 <template>
   <div>
-      <gradebook-card v-for="gradebook in gradebooks" :key="gradebook.id" :gradebook="gradebook"/>
+      <gradebook-card v-for="gradebook in gradebooksToShow" :key="gradebook.id" :gradebook="gradebook"/>
+      <button v-if="!loadButtonNeeded" @click="loadMore">Load more</button>
+      <p v-if="ifNoGradebooks">Nema dnevnika</p>
   </div>
 </template>
 
@@ -13,10 +15,16 @@ export default {
         GradebookCard
     },
     computed: {
-        ...mapGetters(['gradebooks'])
+        ...mapGetters(['gradebooks', 'gradebooksToShow', 'endIndex', 'loadButtonNeeded']),
+        ifNoGradebooks() {
+            return this.gradebooks.length === 0
+        }
     },
     methods: {
-        ...mapActions(['getGradebooks'])
+        ...mapActions(['getGradebooks', 'load']),
+        loadMore() {
+            this.load()
+        }
     },
     beforeRouteEnter(to, form, next) {
         next(vm => vm.getGradebooks());
